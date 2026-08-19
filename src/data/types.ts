@@ -64,7 +64,7 @@ export interface ContactLog {
   fecha: string;
   canal: ContactChannel;
   resultado: ContactResult;
-  comentario?: string;
+  comentario?: string | undefined;
 }
 
 export type AlertType = "sin_abordar" | "rescate" | "riesgo_baja";
