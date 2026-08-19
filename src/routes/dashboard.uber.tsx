@@ -4,7 +4,6 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  Cell,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -194,10 +193,6 @@ function UberDashboard() {
             ))}
           </CardContent>
         </Card>
-      </div>
-
-      <div className="hidden">
-        <Cell />
       </div>
     </AppLayout>
   );
