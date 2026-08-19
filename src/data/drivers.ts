@@ -17,7 +17,7 @@ function makeRng(seed: number) {
   };
 }
 const rng = makeRng(20260819);
-const pick = <T,>(arr: T[]): T => arr[Math.floor(rng() * arr.length)];
+const pick = <T,>(arr: T[]): T => arr[Math.floor(rng() * arr.length)] as T;
 const between = (min: number, max: number) => min + Math.floor(rng() * (max - min + 1));
 
 const nombres = [
@@ -97,9 +97,9 @@ function buildDrivers(count: number): Driver[] {
   for (let i = 0; i < count; i++) {
     const name = pick(nombres);
     const surname = `${pick(apellidos)} ${pick(apellidos)}`;
-    const stage = stages[i % stages.length];
-    const [make, models] = pick(marcas);
-    const city = companyConfig.cities[i % companyConfig.cities.length];
+    const stage = stages[i % stages.length] as OnboardingStage;
+    const [make, models] = pick(marcas) as [string, string[]];
+    const city = companyConfig.cities[i % companyConfig.cities.length] as string;
     const registro = between(3, 90);
     const hasTrips = ["primer_viaje", "seguimiento_activo", "rescate"].includes(stage);
     const tripsCompleted =
@@ -126,7 +126,7 @@ function buildDrivers(count: number): Driver[] {
       name,
       surname,
       email: `${name.toLowerCase().normalize("NFD").replace(/[^a-z]/g, "")}.${surname
-        .split(" ")[0]
+        .split(" ")[0]!
         .toLowerCase()
         .normalize("NFD")
         .replace(/[^a-z]/g, "")}${i}@correo.mx`,

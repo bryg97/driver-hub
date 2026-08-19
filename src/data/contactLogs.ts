@@ -12,7 +12,7 @@ function makeRng(seed: number) {
   };
 }
 const rng = makeRng(777);
-const pick = <T,>(arr: T[]): T => arr[Math.floor(rng() * arr.length)];
+const pick = <T,>(arr: T[]): T => arr[Math.floor(rng() * arr.length)] as T;
 
 const canales: ContactChannel[] = ["llamada", "llamada", "whatsapp", "whatsapp", "correo", "presencial"];
 const resultados: ContactResult[] = [
