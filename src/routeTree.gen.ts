@@ -10,11 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardAgentesRouteImport } from './routes/dashboard.agentes'
+import { Route as DashboardOnboardingRouteImport } from './routes/dashboard.onboarding'
 import { Route as DashboardUberRouteImport } from './routes/dashboard.uber'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardAgentesRoute = DashboardAgentesRouteImport.update({
+  id: '/dashboard/agentes',
+  path: '/dashboard/agentes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardOnboardingRoute = DashboardOnboardingRouteImport.update({
+  id: '/dashboard/onboarding',
+  path: '/dashboard/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardUberRoute = DashboardUberRouteImport.update({
@@ -25,27 +37,41 @@ const DashboardUberRoute = DashboardUberRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard/agentes': typeof DashboardAgentesRoute
+  '/dashboard/onboarding': typeof DashboardOnboardingRoute
   '/dashboard/uber': typeof DashboardUberRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard/agentes': typeof DashboardAgentesRoute
+  '/dashboard/onboarding': typeof DashboardOnboardingRoute
   '/dashboard/uber': typeof DashboardUberRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard/agentes': typeof DashboardAgentesRoute
+  '/dashboard/onboarding': typeof DashboardOnboardingRoute
   '/dashboard/uber': typeof DashboardUberRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard/uber'
+  fullPaths:
+    '/' | '/dashboard/agentes' | '/dashboard/onboarding' | '/dashboard/uber'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard/uber'
-  id: '__root__' | '/' | '/dashboard/uber'
+  to: '/' | '/dashboard/agentes' | '/dashboard/onboarding' | '/dashboard/uber'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard/agentes'
+    | '/dashboard/onboarding'
+    | '/dashboard/uber'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardAgentesRoute: typeof DashboardAgentesRoute
+  DashboardOnboardingRoute: typeof DashboardOnboardingRoute
   DashboardUberRoute: typeof DashboardUberRoute
 }
 
@@ -56,6 +82,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/agentes': {
+      id: '/dashboard/agentes'
+      path: '/dashboard/agentes'
+      fullPath: '/dashboard/agentes'
+      preLoaderRoute: typeof DashboardAgentesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/onboarding': {
+      id: '/dashboard/onboarding'
+      path: '/dashboard/onboarding'
+      fullPath: '/dashboard/onboarding'
+      preLoaderRoute: typeof DashboardOnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/uber': {
@@ -70,6 +110,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardAgentesRoute: DashboardAgentesRoute,
+  DashboardOnboardingRoute: DashboardOnboardingRoute,
   DashboardUberRoute: DashboardUberRoute,
 }
 export const routeTree = rootRouteImport
